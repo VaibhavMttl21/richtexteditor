@@ -138,9 +138,9 @@ export const Draggable = withRef<'div', PlateRenderElementProps>(
                   isInColumn && 'mr-1.5'
                 )}
               >
-                <div ref={handleRef} className="size-4">
+                {/* <div ref={handleRef} className="size-4">
                   <DragHandle />
-                </div>
+                </div> */}
               </div>
             </div>
           </Gutter>
@@ -213,26 +213,26 @@ const Gutter = React.forwardRef<
   );
 });
 
-const DragHandle = React.memo(() => {
-  const editor = useEditorRef();
-  const element = useElement();
+// const DragHandle = React.memo(() => {
+//   const editor = useEditorRef();
+//   const element = useElement();
 
-  return (
-    <TooltipButton
-      variant="ghost"
-      className="h-6 w-4.5 p-0"
-      onClick={() => {
-        editor
-          .getApi(BlockSelectionPlugin)
-          .blockSelection.set(element.id as string);
-      }}
-      data-plate-prevent-deselect
-      tooltip="Drag to move"
-    >
-      <GripVertical className="text-muted-foreground" />
-    </TooltipButton>
-  );
-});
+//   return (
+//     <TooltipButton
+//       variant="ghost"
+//       className="h-6 w-4.5 p-0"
+//       onClick={() => {
+//         editor
+//           .getApi(BlockSelectionPlugin)
+//           .blockSelection.set(element.id as string);
+//       }}
+//       data-plate-prevent-deselect
+//       tooltip="Drag to move"
+//     >
+//       <GripVertical className="text-muted-foreground" />
+//     </TooltipButton>
+//   );
+// });
 
 const DropLine = React.memo(
   React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

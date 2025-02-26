@@ -39,6 +39,7 @@ export function FloatingInput({
   label,
   ...props
 }: FloatingInputProps) {
+  // console.log("sngcvsng");
   return (
     <>
       <label

@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { cn } from '@udecode/cn';
 import { HEADING_KEYS } from '@udecode/plate-heading';
 import { ParagraphPlugin } from '@udecode/plate/react';
@@ -36,12 +35,28 @@ export const withPlaceholder = createNodeHOC(Placeholder);
 
 export const withPlaceholdersPrimitive = createNodesHOC(Placeholder);
 
-export const withPlaceholders = (components: any) =>
-  withPlaceholdersPrimitive(components, [
+export const withPlaceholders = (components: any) => {
+  const [randomText, setRandomText] = useState('Loading...');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=1&format=text');
+        const text = await response.text();
+        console.log(text)
+        setRandomText(text);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setRandomText('Type a paragraph'); 
+      }
+    };
+    fetchData();
+  }, [components]);
+  return withPlaceholdersPrimitive(components, [
     {
       key: ParagraphPlugin.key,
       hideOnBlur: true,
-      placeholder: 'Type a paragraph',
+      placeholder: "type a Paragraph",
       query: {
         maxLevel: 1,
       },
@@ -52,3 +67,4 @@ export const withPlaceholders = (components: any) =>
       placeholder: 'Untitled',
     },
   ]);
+};

@@ -20,6 +20,7 @@ export const DialogOverlay = withCn(
 );
 
 export const DialogContent = withRef<typeof DialogPrimitive.Content>(
+  
   ({ children, className, ...props }, ref) => (
     <DialogPortal>
       <DialogOverlay />
