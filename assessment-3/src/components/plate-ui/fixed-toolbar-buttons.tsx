@@ -144,9 +144,9 @@ export function FixedToolbarButtons() {
 
           <ToolbarGroup>
             <LinkToolbarButton />
-            <TableDropdownMenu />
+            {/* <TableDropdownMenu /> */}
             <EmojiDropdownMenu />
-          </ToolbarGroup>
+          </ToolbarGroup> 
 
           <ToolbarGroup>
             <MediaToolbarButton nodeType={ImagePlugin.key} />

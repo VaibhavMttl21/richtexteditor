@@ -71,6 +71,8 @@ import { BaseTogglePlugin } from '@udecode/plate-toggle';
 import { useEditorRef } from '@udecode/plate/react';
 import { ArrowDownToLineIcon } from 'lucide-react';
 import Prism from 'prismjs';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
 
 import { BlockquoteElementStatic } from '@/components/plate-ui/blockquote-element-static';
 import { CodeBlockElementStatic } from '@/components/plate-ui/code-block-element-static';
@@ -366,6 +368,27 @@ export function ExportToolbarButton({ children, ...props }: DropdownMenuProps) {
     await downloadFile(url, 'plate.md');
   };
 
+  const exportToDocx = async () => {
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: editor.children.map((node) => {
+            if (node.type === 'p') {
+              return new Paragraph({
+                children: node.children.map((child) => new TextRun(child.text)),
+              });
+            }
+            return new Paragraph({});
+          }),
+        },
+      ],
+    });
+
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, 'document.docx');
+  };
+
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
@@ -387,6 +410,9 @@ export function ExportToolbarButton({ children, ...props }: DropdownMenuProps) {
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToMarkdown}>
             Export as Markdown
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={exportToDocx}>
+            Export as DOCX
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -22,8 +22,14 @@ export const TableElementStatic = ({
       {...props}
     >
       <div className="group/table relative w-fit">
-        <table className="mr-0 ml-px table h-px table-fixed border-collapse">
-          <tbody className="min-w-full">{children}</tbody>
+        <table className="mr-0 ml-px table h-px table-fixed border-collapse bg-gray-100 border border-gray-300">
+          <tbody className="min-w-full">
+            {React.Children.map(children, (child) =>
+              React.cloneElement(child, {
+                className: cn(child.props.className, 'border border-gray-300 bg-white'),
+              })
+            )}
+          </tbody>
         </table>
       </div>
     </SlateElement>
